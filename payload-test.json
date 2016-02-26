@@ -815,7 +815,7 @@
       "tracker-common"
     ],
     "vcs_tag": null,
-    "build_num": 9602,
+    "build_num": 9604,
     "infrastructure_fail": false,
     "ssh_enabled": false,
     "committer_email": "debrown@pivotal.io",
@@ -870,9 +870,9 @@
         "author_email": "debrown@pivotal.io"
       }
     ],
-    "outcome": "failed",
+    "outcome": "success",
     "vcs_url": "https://github.com/pivotaltracker/tracker-frontend",
-    "author_name": "Devin Brown",
+    "author_name": "Brown Devin",
     "node": [
       {
         "public_ip_addr": "54.200.93.228",

@@ -1,0 +1,22 @@
+.ProjectBuild {
+  background: #FF6138;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.ProjectBuild--success {
+  background: #00A388;
+}
+
+.ProjectBuild__branch {
+  font-size: 3rem;
+}
+
+.ProjectBuild__author {
+  font-size: 2rem;
+}
+
+.ProjectBuild__stoptime {
+
+}

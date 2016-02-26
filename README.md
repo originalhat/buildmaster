@@ -8,17 +8,16 @@ _TODO_
 
 ## TODO
 
-- [ ] visualize frontend builds using webhooks (maintain similar product)
-- [ ] namespace builds to various routes
-    - `POST http://6ab9c16d.ngrok.com/tracker-frontend`
-    - `GET http://6ab9c16d.ngrok.com/tracker-frontend`
+- [x] visualize frontend builds using webhooks (maintain similar product)
+- [x] namespace builds to various routes
+- [x] CSS modules
 - [ ] deploy to PWS
-    - buildmaster.cfapps.io
 - [ ] visual _enhancements_
+- [ ] include persistant storage (builds not lost on refresh)
+- [ ] day since last deploy
+- [ ] commit to master auto-deploy
+- [ ] display branch build status in TrackerStory
 - [ ] SMS notifications via [Twilio](https://www.twilio.com/)
-- [ ] include persistane storage (builds not lost on refresh)
-- [x] use CSS modules
-- [] commit to master auto-deploy
 
 ## Developmental usage
 
