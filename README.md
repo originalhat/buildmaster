@@ -17,7 +17,8 @@ _TODO_
 - [ ] visual _enhancements_
 - [ ] SMS notifications via [Twilio](https://www.twilio.com/)
 - [ ] include persistane storage (builds not lost on refresh)
-- [ ] use CSS modules
+- [x] use CSS modules
+- [] commit to master auto-deploy
 
 ## Developmental usage
 

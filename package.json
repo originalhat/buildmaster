@@ -68,6 +68,7 @@
     "react-router": "^2.0.0-rc5",
     "react-router-redux": "^3.0.0",
     "redux": "^3.0.0",
+    "redux-socket.io": "^1.0.0",
     "redux-thunk": "^1.0.0",
     "socket.io": "^1.4.5",
     "url": "^0.11.0",

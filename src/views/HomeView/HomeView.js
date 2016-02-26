@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 // import { Link } from 'react-router'
-import { actions as counterActions } from '../../redux/modules/counter'
+// import { actions as counterActions } from '../../redux/modules/counter'
 import classes from './HomeView.scss'
 
 // We define mapStateToProps where we'd normally use
@@ -10,8 +10,9 @@ import classes from './HomeView.scss'
 // the component can be tested w/ and w/o being connected.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 const mapStateToProps = (state) => ({
-  counter: state.counter
+  foo: 'bar'
 })
+
 export class HomeView extends React.Component {
   static propTypes = {
     counter: PropTypes.number.isRequired,
@@ -29,4 +30,4 @@ export class HomeView extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, counterActions)(HomeView)
+export default connect(mapStateToProps, {})(HomeView)

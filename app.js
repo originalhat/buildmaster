@@ -17,7 +17,7 @@ function startServer () {
 
 function pushProjectBuild (route) {
   app.post(route, function (req, res) {
-    io.sockets.emit('projectBuild', req.body)
+    io.sockets.emit('action', {type: 'message', data: req.body})
     res.send({status: 200})
   })
 }
