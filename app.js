@@ -4,6 +4,8 @@ var server = require('http').Server(app)
 var bodyParser = require('body-parser')
 var io = require('socket.io')(server)
 
+var port = process.env.PORT || 3000
+
 app.use(bodyParser.json())
 app.use(express.static('dist'))
 
@@ -15,7 +17,7 @@ app.post('/', function (req, res) {
 })
 
 function startServer () {
-  server.listen(80, function () {
+  app.listen(port, function () {
     console.log('Express server is up and running!')
   })
 }
