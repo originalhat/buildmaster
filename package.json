@@ -52,9 +52,12 @@
   "license": "MIT",
   "dependencies": {
     "better-npm-run": "0.0.5",
+    "body-parser": "^1.15.0",
     "debug": "^2.2.0",
     "dotenv": "^2.0.0",
+    "express": "^4.13.4",
     "history": "^2.0.0-rc2",
+    "http": "0.0.0",
     "koa": "^2.0.0-alpha.3",
     "koa-connect-history-api-fallback": "^0.3.0",
     "koa-convert": "^1.2.0",
@@ -66,6 +69,7 @@
     "react-router-redux": "^3.0.0",
     "redux": "^3.0.0",
     "redux-thunk": "^1.0.0",
+    "socket.io": "^1.4.5",
     "url": "^0.11.0",
     "yargs": "^3.18.0"
   },

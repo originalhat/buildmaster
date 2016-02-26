@@ -37,7 +37,7 @@ export default class Root extends React.Component {
       <Provider store={this.props.store}>
         <div style={{ height: '100%' }}>
           {this.content}
-          {this.devTools}
+          {/* this.devTools */}
         </div>
       </Provider>
     )

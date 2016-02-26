@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 import { actions as counterActions } from '../../redux/modules/counter'
 import classes from './HomeView.scss'
 
@@ -20,8 +20,9 @@ export class HomeView extends React.Component {
   };
 
   render () {
+    console.log('classes', classes)
     return (
-      <div className='container text-center'>
+      <div className={classes['HomeView']}>
         <h1>Buildmaster™</h1>
       </div>
     )
