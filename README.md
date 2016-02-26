@@ -8,16 +8,8 @@ _TODO_
 
 ## TODO
 
-- [x] visualize frontend builds using webhooks (maintain similar product)
-- [x] namespace builds to various routes
-- [x] CSS modules
-- [ ] deploy to PWS
-- [ ] visual _enhancements_
-- [ ] include persistant storage (builds not lost on refresh)
-- [ ] day since last deploy
-- [ ] commit to master auto-deploy
-- [ ] display branch build status in TrackerStory
-- [ ] SMS notifications via [Twilio](https://www.twilio.com/)
+- [ ] namespace builds w/ routes
+- [ ] persisist state in session / local storage
 
 ## Developmental usage
 
