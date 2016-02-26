@@ -32,7 +32,7 @@ import io from 'socket.io-client'
 //   return store
 // }
 
-let socket = io('http://localhost:4000')
+let socket = io('http://localhost:3000')
 let socketIOMiddleware = createSocketIoMiddleware(socket, 'server/')
 
 export default function configureStore () {
