@@ -17,7 +17,7 @@ app.post('/', function (req, res) {
 })
 
 function startServer () {
-  app.listen(port, function () {
+  server.listen(port, function () {
     console.log('Express server is up and running!')
   })
 }
