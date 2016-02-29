@@ -12,7 +12,6 @@ app.use(express.static('dist'))
 startServer()
 
 app.post('/', function (req, res) {
-  process.STDOUT(req.body)
   io.sockets.emit('action', {type: 'message', data: req.body})
   res.send({status: 200})
 })
