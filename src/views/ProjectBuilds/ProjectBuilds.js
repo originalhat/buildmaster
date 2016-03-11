@@ -16,7 +16,6 @@ export class ProjectBuilds extends React.Component {
         {this.props.builds.map((build) => {
           return (
             <ProjectBuild
-              key={build.build_num}
               outcome={build.outcome}
               branch={build.branch}
               author={build.committer_name}
