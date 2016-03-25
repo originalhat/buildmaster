@@ -32,7 +32,12 @@ import io from 'socket.io-client'
 //   return store
 // }
 
-let socket = io('http://buildmaster.cfapps.io')
+/* PROD */
+// let socket = io('http://buildmaster.cfapps.io')
+
+/* NON-PROD */
+let socket = io('http://localhost:4000')
+
 let socketIOMiddleware = createSocketIoMiddleware(socket, 'server/')
 
 export default function configureStore () {

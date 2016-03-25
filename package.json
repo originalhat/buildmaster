@@ -12,7 +12,7 @@
     "compile": "node -r dotenv/config --harmony bin/compile",
     "lint": "eslint . ./",
     "lint:fix": "npm run lint -- --fix",
-    "start": "npm run compile && node app.js",
+    "start": "better-npm-run start",
     "dev": "better-npm-run dev",
     "dev:nw": "npm run dev -- --nw",
     "dev:no-debug": "npm run dev -- --no_debug",
@@ -124,7 +124,7 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.6",
     "webpack": "1.12.9",
-    "webpack-dev-middleware": "^1.4.0",
+    "webpack-dev-middleware": "1.5.1",
     "webpack-hot-middleware": "^2.6.0"
   },
   "devDependencies": {
@@ -186,7 +186,7 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.6",
     "webpack": "1.12.9",
-    "webpack-dev-middleware": "^1.4.0",
+    "webpack-dev-middleware": "1.5.1",
     "webpack-hot-middleware": "^2.6.0"
   }
 }
