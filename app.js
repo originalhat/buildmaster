@@ -4,7 +4,7 @@ var server = require('http').Server(app)
 var bodyParser = require('body-parser')
 var io = require('socket.io')(server)
 
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 4000
 
 app.use(bodyParser.json())
 app.use(express.static('dist'))
