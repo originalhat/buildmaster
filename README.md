@@ -4,12 +4,9 @@ Visualization for automated build tools.
 
 ## Table of contents
 
-_TODO_
-
 ## TODO
 
-- [ ] namespace builds w/ routes
-- [ ] persisist state in session / local storage
+- https://www.pivotaltracker.com/n/projects/1503978
 
 ## Developmental usage
 
@@ -30,11 +27,3 @@ Start webpack server:
 ```
 npm start
 ```
-
-## Deployment
-
-_TODO_
-
-## Integration w/ CircleCI
-
-_TODO_
