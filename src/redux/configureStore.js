@@ -22,8 +22,7 @@ export default function configureStore () {
                 combinedPayloadState(action.data.payload, state.builds)
               )
             )
-          }
-        )
+        })
       default:
         return state
     }
