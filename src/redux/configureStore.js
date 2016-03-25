@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore } from 'redux'
 import createSocketIoMiddleware from 'redux-socket.io'
 import io from 'socket.io-client'
+import R from 'ramda'
 
 /* PROD */
 let socket = io('https://buildmaster.cfapps.io')
