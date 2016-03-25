@@ -14,10 +14,22 @@ export default function configureStore () {
   function reducer (state = {}, action) {
     switch (action.type) {
       case 'message':
-        return Object.assign({}, {builds: state.builds.concat(action.data.payload)})
+        return Object.assign({}, {
+          builds: limitBuildCount(
+            combinedPayloadState(action.data.payload, state.builds)
+          )
+        })
       default:
         return state
     }
+  }
+
+  function combinedPayloadState (payload, builds) {
+    return R.unionWith(R.eqBy(R.prop('branch')), [payload], builds)
+  }
+
+  function limitBuildCount (builds) {
+    return R.slice(0, 3, builds)
   }
 
   const initialState = {builds: []}

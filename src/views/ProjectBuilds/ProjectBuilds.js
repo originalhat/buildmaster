@@ -13,9 +13,10 @@ export class ProjectBuilds extends React.Component {
   render () {
     return (
       <div className={classes['ProjectBuilds']}>
-        {this.props.builds.map((build) => {
+        {this.props.builds.map((build, index) => {
           return (
             <ProjectBuild
+              key={index}
               outcome={build.outcome}
               branch={build.branch}
               author={build.committer_name}
