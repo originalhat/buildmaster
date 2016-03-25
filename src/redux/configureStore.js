@@ -16,10 +16,14 @@ export default function configureStore () {
     switch (action.type) {
       case 'message':
         return Object.assign({}, {
-          builds: limitBuildCount(
-            combinedPayloadState(action.data.payload, state.builds)
-          )
-        })
+          builds:
+            limitBuildCount(
+              removeGreenLatest(
+                combinedPayloadState(action.data.payload, state.builds)
+              )
+            )
+          }
+        )
       default:
         return state
     }
@@ -30,7 +34,11 @@ export default function configureStore () {
   }
 
   function limitBuildCount (builds) {
-    return R.slice(0, 3, builds)
+    return R.slice(0, 10, builds)
+  }
+
+  function removeGreenLatest (builds) {
+    return R.reject(R.propEq('branch', 'green-latest'), builds)
   }
 
   const initialState = {builds: []}
