@@ -13,8 +13,12 @@
   font-size: 3rem;
 }
 
+.ProjectBuild__repo {
+  font-size: 1.5rem;
+}
+
 .ProjectBuild__author {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .ProjectBuild__stoptime {

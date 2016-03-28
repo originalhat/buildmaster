@@ -21,6 +21,7 @@ export class ProjectBuild extends React.Component {
     return (
       <div className={cn(projectBuildClasses)}>
         <div className={classes['ProjectBuild__branch']}>{this.props.branch}</div>
+        <div className={classes['ProjectBuild__repo']}>{this.props.repo}</div>
         <div className={classes['ProjectBuild__author']}>
           {this.authorString_(this.props.author, this.props.coauthor)}
         </div>

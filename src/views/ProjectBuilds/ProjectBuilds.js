@@ -21,6 +21,7 @@ export class ProjectBuilds extends React.Component {
               branch={build.branch}
               author={build.committer_name}
               coauthor={build.author_name}
+              repo={build.reponame}
             />
           )
         })}
