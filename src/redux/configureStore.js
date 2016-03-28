@@ -4,10 +4,10 @@ import io from 'socket.io-client'
 import R from 'ramda'
 
 /* PROD */
-// let socket = io('https://buildmaster.cfapps.io')
+let socket = io('https://buildmaster.cfapps.io')
 
 /* NON-PROD */
-let socket = io('http://localhost:4000')
+// let socket = io('http://localhost:4000')
 
 let socketIOMiddleware = createSocketIoMiddleware(socket, 'server/')
 
