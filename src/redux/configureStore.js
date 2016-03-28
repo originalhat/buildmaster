@@ -4,10 +4,10 @@ import io from 'socket.io-client'
 import R from 'ramda'
 
 /* PROD */
-let socket = io('https://buildmaster.cfapps.io')
+// let socket = io('https://buildmaster.cfapps.io')
 
 /* NON-PROD */
-// let socket = io('http://localhost:4000')
+let socket = io('http://localhost:4000')
 
 let socketIOMiddleware = createSocketIoMiddleware(socket, 'server/')
 
@@ -29,7 +29,12 @@ export default function configureStore () {
   }
 
   function combinedPayloadState (payload, builds) {
-    return R.unionWith(R.eqBy(R.prop('branch')), [payload], builds)
+    let isUniqueByRepoAndBranch = R.allPass([
+      R.eqBy(R.prop('reponame')),
+      R.eqBy(R.prop('branch'))
+    ])
+
+    return R.unionWith(isUniqueByRepoAndBranch, [payload], builds)
   }
 
   function limitBuildCount (builds) {

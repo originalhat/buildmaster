@@ -2,7 +2,7 @@
     "payload": {
         "compare": "https://github.com/pivotaltracker/tracker-marketing/compare/2d8fa8a0f4fa...6597902bb64f",
         "previous_successful_build": {
-            "build_num": 555,
+            "build_num": 556,
             "status": "success",
             "build_time_millis": 715389
         },
@@ -549,7 +549,7 @@
         "build_url": "https://circleci.com/gh/pivotaltracker/tracker-marketing/556",
         "parallel": 1,
         "failed": null,
-        "branch": "green-latest",
+        "branch": "master",
         "username": "pivotaltracker",
         "author_date": "2016-03-22T11:26:57-06:00",
         "why": "retry",
@@ -596,7 +596,7 @@
             {
                 "committer_date": "2016-03-22T11:26:57-06:00",
                 "body": "Signed-off-by: Devin Brown <debrown@pivotal.io>",
-                "branch": "red-branch-bad",
+                "branch": "master",
                 "author_date": "2016-03-22T11:26:57-06:00",
                 "committer_email": "debrown@pivotal.io",
                 "commit": "6597902bb64fcd2bd3a98df1c298561b062a78e9",
