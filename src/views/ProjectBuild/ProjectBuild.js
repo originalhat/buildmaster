@@ -6,6 +6,7 @@ import classes from './ProjectBuild.css'
 
 export class ProjectBuild extends React.Component {
   static propTypes = {
+    repo: React.PropTypes.string,
     outcome: React.PropTypes.string,
     branch: React.PropTypes.string,
     author: React.PropTypes.string,
