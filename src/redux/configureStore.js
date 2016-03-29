@@ -15,18 +15,25 @@ export default function configureStore () {
   function reducer (state = {}, action) {
     switch (action.type) {
       case 'message':
+        let filterBuilds = R.compose(
+          // toBuildObject
+          limitBuildCount,
+          removeGreenLatest,
+          combinedPayloadState
+        )
         return Object.assign({}, {
-          builds:
-            limitBuildCount(
-              removeGreenLatest(
-                combinedPayloadState(action.data.payload, state.builds)
-              )
-            )
+          builds: filterBuilds([action.data.payload], state.builds)
         })
       default:
         return state
     }
   }
+
+  // TODO: const toBuildObject
+
+  const limitBuildCount = R.slice(0, 10)
+
+  const removeGreenLatest = R.reject(R.propEq('branch', 'green-latest'))
 
   function combinedPayloadState (payload, builds) {
     let isUniqueByRepoAndBranch = R.allPass([
@@ -34,15 +41,7 @@ export default function configureStore () {
       R.eqBy(R.prop('branch'))
     ])
 
-    return R.unionWith(isUniqueByRepoAndBranch, [payload], builds)
-  }
-
-  function limitBuildCount (builds) {
-    return R.slice(0, 10, builds)
-  }
-
-  function removeGreenLatest (builds) {
-    return R.reject(R.propEq('branch', 'green-latest'), builds)
+    return R.unionWith(isUniqueByRepoAndBranch, payload, builds)
   }
 
   const initialState = {builds: []}
