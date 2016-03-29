@@ -16,7 +16,7 @@ export default function configureStore () {
     switch (action.type) {
       case 'message':
         let filterBuilds = R.compose(
-          // toBuildObject
+          mastersFirst,
           limitBuildCount,
           removeGreenLatest,
           combinedPayloadState
@@ -29,9 +29,13 @@ export default function configureStore () {
     }
   }
 
-  // TODO: const toBuildObject
+  const mastersFirst = R.sort(R.ifElse(
+    R.propEq('branch', 'master'),
+    R.always(-1),
+    R.always(1))
+  )
 
-  const limitBuildCount = R.slice(0, 10)
+  const limitBuildCount = R.take(5)
 
   const removeGreenLatest = R.reject(R.propEq('branch', 'green-latest'))
 

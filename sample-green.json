@@ -549,7 +549,7 @@
         "build_url": "https://circleci.com/gh/pivotaltracker/tracker-marketing/556",
         "parallel": 1,
         "failed": null,
-        "branch": "master",
+        "branch": "something esle",
         "username": "pivotaltracker",
         "author_date": "2016-03-22T11:26:57-06:00",
         "why": "retry",
