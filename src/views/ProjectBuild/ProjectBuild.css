@@ -1,8 +1,12 @@
 .ProjectBuild {
-  background: #FF6138;
+  background: gray;
   padding: 1rem;
   margin-bottom: 1rem;
   width: 100%;
+}
+
+.ProjectBuild--failure {
+  background: #FF6138;
 }
 
 .ProjectBuild--success {

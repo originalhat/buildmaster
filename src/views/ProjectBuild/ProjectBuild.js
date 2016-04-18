@@ -16,7 +16,8 @@ export class ProjectBuild extends React.Component {
   render () {
     const projectBuildClasses = {
       [classes['ProjectBuild']]: true,
-      [classes['ProjectBuild--success']]: this.props.outcome === 'success'
+      [classes['ProjectBuild--success']]: this.props.outcome === 'success',
+      [classes['ProjectBuild--failure']]: this.props.outcome === 'failure'
     }
 
     return (

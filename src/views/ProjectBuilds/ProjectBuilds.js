@@ -19,9 +19,9 @@ export class ProjectBuilds extends React.Component {
               key={index}
               outcome={build.outcome}
               branch={build.branch}
-              author={build.committer_name}
-              coauthor={build.author_name}
-              repo={build.reponame}
+              author={build.author}
+              coauthor={build.coauthor}
+              repo={build.repo}
             />
           )
         })}

@@ -22,7 +22,7 @@ export default function configureStore () {
           combinedPayloadState
         )
         return Object.assign({}, {
-          builds: filterBuilds([action.data.payload], state.builds)
+          builds: filterBuilds([action.data], state.builds)
         })
       default:
         return state
