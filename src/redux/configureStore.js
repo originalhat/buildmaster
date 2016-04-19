@@ -39,9 +39,10 @@ export default function configureStore () {
 
   const removeGreenLatest = R.reject(R.propEq('branch', 'green-latest'))
 
+
   function combinedPayloadState (payload, builds) {
     let isUniqueByRepoAndBranch = R.allPass([
-      R.eqBy(R.prop('reponame')),
+      R.eqBy(R.prop('repo')),
       R.eqBy(R.prop('branch'))
     ])
 
