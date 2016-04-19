@@ -35,7 +35,7 @@ export default function configureStore () {
     R.always(1))
   )
 
-  const limitBuildCount = R.take(5)
+  const limitBuildCount = R.take(30)
 
   const removeGreenLatest = R.reject(R.propEq('branch', 'green-latest'))
 
