@@ -8,7 +8,10 @@ import classes from './ProjectBuilds.css'
 
 export class ProjectBuilds extends React.Component {
   static propTypes = {
-    builds: PropTypes.array
+    builds: PropTypes.array,
+    params: PropTypes.shape({
+      repo: PropTypes.string
+    })
   };
 
   render () {
