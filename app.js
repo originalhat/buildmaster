@@ -37,7 +37,7 @@ app.post('/github', function (req, res) {
     res.on('end', () => {
       // not sure which branch to use... just pick the first
       const branch = req.body.branches.length && req.body.branches[0].name
-      const combinedStatus = body.state;
+      const combinedStatus = JSON.parse(body).state;
       if (!branch) return
 
       pushBuildUpdateToClient({
