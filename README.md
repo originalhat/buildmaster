@@ -2,28 +2,23 @@
 
 Visualization for automated build tools.
 
-## Table of contents
-
 ## TODO
 
-- https://www.pivotaltracker.com/n/projects/1503978
+- [] build some nice views with our data
+    - CSS?
+- [] smarter data handling (e.g. merge properly)
+    - TDD! (elm-test)
+    - rules:
+        - merge recent branches
+        - unique repo && branch
+- [] websockets (aka receivin' da data)
+    - parse incoming JSON w/ JSON decoder
+    - Mailbox?
+- [] timestamps / build times / last build / etc.
 
-## Developmental usage
-
-Install dependencies:
-
-```
-npm i
-```
-
-Start express server:
-
-```
-node app.js
-```
-
-Start webpack server:
+## Usage
 
 ```
-npm start
+onchange '*.elm' -- elm make Main.elm --output main.js
 ```
+

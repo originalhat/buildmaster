@@ -1,8 +1,8 @@
 .DS_STORE
 *.log
-
+elm-stuff/
 node_modules
-
+main.js
 coverage
 
 dist
