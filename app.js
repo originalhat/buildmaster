@@ -45,7 +45,8 @@ app.post('/github', function (req, res) {
         outcome: combinedStatus,
         branch: branch,
         author: req.body.commit.commit.author.name,
-        coauthor: req.body.commit.commit.committer.name
+        coauthor: req.body.commit.commit.committer.name,
+        timestamp: (new Date()).getTime()
       })
     })
   }).on('error', (e) => {

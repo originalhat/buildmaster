@@ -17,13 +17,23 @@ export default function configureStore () {
       case 'message':
         let filterBuilds = R.compose(
           mastersFirst,
+          R.sortBy(R.prop('timestamp')),
           limitBuildCount,
           removeGreenLatest,
           combinedPayloadState
         )
-        return Object.assign({}, {
+
+        const newState = Object.assign({}, {
           builds: filterBuilds([action.data], state.builds)
         })
+
+        window.localStorage.setItem('buildmasterBuilds', JSON.stringify(newState.builds))
+
+        return newState
+
+      case 'FETCH_BUILDS':
+        return {builds: action.builds || []}
+
       default:
         return state
     }

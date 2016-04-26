@@ -10,7 +10,8 @@ export class ProjectBuild extends React.Component {
     outcome: React.PropTypes.string,
     branch: React.PropTypes.string,
     author: React.PropTypes.string,
-    coauthor: React.PropTypes.string
+    coauthor: React.PropTypes.string,
+    timestamp: React.PropTypes.number
   };
 
   render () {
@@ -26,6 +27,9 @@ export class ProjectBuild extends React.Component {
         <div className={classes['ProjectBuild__repo']}>{this.props.repo}</div>
         <div className={classes['ProjectBuild__author']}>
           {this.authorString_(this.props.author, this.props.coauthor)}
+        </div>
+        <div className={classes['ProjectBuild__time']}>
+          {(new Date(this.props.timestamp)).toGMTString()}
         </div>
       </div>
     )

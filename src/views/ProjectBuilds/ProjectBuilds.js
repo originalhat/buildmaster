@@ -21,12 +21,13 @@ export class ProjectBuilds extends React.Component {
         {this.props.builds.filter(onlySelectedRepo).map((build, index) => {
           return (
             <ProjectBuild
-              key={index}
+              key={build.repo + '/' + build.branch}
               outcome={build.outcome}
               branch={build.branch}
               author={build.author}
               coauthor={build.coauthor}
               repo={build.repo}
+              timestamp={ build.timestamp }
             />
           )
         })}
