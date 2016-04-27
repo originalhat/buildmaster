@@ -13,16 +13,16 @@ let socketIOMiddleware = createSocketIoMiddleware(socket, 'server/')
 
 export default function configureStore () {
   function reducer (state = {}, action) {
+    let filterBuilds = R.compose(
+      R.reverse,
+      mastersFirst,
+      limitBuildCount,
+      removeGreenLatest,
+      combinedPayloadState
+    )
+
     switch (action.type) {
       case 'message':
-        let filterBuilds = R.compose(
-          mastersFirst,
-          R.sortBy(R.prop('timestamp')),
-          limitBuildCount,
-          removeGreenLatest,
-          combinedPayloadState
-        )
-
         const newState = Object.assign({}, {
           builds: filterBuilds([action.data], state.builds)
         })
@@ -32,18 +32,20 @@ export default function configureStore () {
         return newState
 
       case 'FETCH_BUILDS':
-        return {builds: action.builds || []}
+        return {builds: filterBuilds([], action.builds) || []}
 
       default:
         return state
     }
   }
 
-  const mastersFirst = R.sort(R.ifElse(
-    R.propEq('branch', 'master'),
-    R.always(-1),
-    R.always(1))
-  )
+  const mastersFirst = R.sortBy((build) => {
+    if (R.propEq('branch', 'master', build)) {
+      return 8640000000000000
+    } else {
+      return build.timestamp
+    }
+  })
 
   const limitBuildCount = R.take(30)
 

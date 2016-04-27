@@ -20,7 +20,7 @@ export class ProjectBuild extends React.Component {
       [classes['ProjectBuild--success']]: this.props.outcome === 'success',
       [classes['ProjectBuild--failure']]: this.props.outcome === 'failure'
     }
-
+    const date = (new Date(this.props.timestamp))
     return (
       <div className={cn(projectBuildClasses)}>
         <div className={classes['ProjectBuild__branch']}>{this.props.branch}</div>
@@ -29,7 +29,7 @@ export class ProjectBuild extends React.Component {
           {this.authorString_(this.props.author, this.props.coauthor)}
         </div>
         <div className={classes['ProjectBuild__time']}>
-          {(new Date(this.props.timestamp)).toGMTString()}
+          {`${date.toDateString()} ${date.toLocaleTimeString()}`}
         </div>
       </div>
     )
