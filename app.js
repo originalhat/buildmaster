@@ -7,13 +7,69 @@ var server = require('http').Server(app)
 var bodyParser = require('body-parser')
 var io = require('socket.io')(server)
 
+var cookieParser = require('cookie-parser');
+var cookieEncrypter = require('cookie-encrypter');
 var port = process.env.PORT || 4000
 
+const githubApplication = {
+  client_id: process.env.GITHUB_APPLICATION_CLIENT_ID,
+  redirect_uri: process.env.GITHUB_APPLICATION_REDIRECT_URI,
+  client_secret: process.env.GITHUB_APPLICATION_CLIENT_SECRET
+};
+
+const cookieParams = {
+  httpOnly: true,
+  signed: true,
+  maxAge: 300000,
+};
+
+const cookieSecretKey = process.env.COOKIE_SECRET;
+
 app.use(bodyParser.json())
-app.use(express.static('dist'))
-app.use('/:optionalRepo', express.static('dist'))
+app.use(cookieParser(cookieSecretKey));
+app.use(cookieEncrypter(cookieSecretKey));
+app.use('/:org/:repo', express.static('dist'))
 
 startServer()
+
+app.get('/signin', function(req, res) {
+  res.redirect('https://github.com/login/oauth/authorize?scope=repo&client_id=' + githubApplication.client_id + '&redirect_uri=' + encodeURIComponent(githubApplication.redirect_uri));
+});
+
+app.get('/githuboauthcallback', function(req, res) {
+  let postRequest = https.request({
+    hostname: 'github.com',
+    method: 'POST',
+    path: '/login/oauth/access_token',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+  }, (response) => {
+    console.log(`Got access_token response: ${response.statusCode}`);
+    let body = '';
+    response.on('data', (d) => body += d);
+    response.on('end', () => {
+      const json = JSON.parse(body);
+      res.cookie('token', json.access_token, cookieParams);
+      res.redirect('/cookies');
+    });
+  }).on('error', (e) => {
+    console.log(`Got error: ${e}`);
+  });
+
+  postRequest.write(JSON.stringify({
+    client_id: githubApplication.client_id,
+    client_secret: githubApplication.client_secret,
+    redirect_uri: githubApplication.redirect_uri,
+    code: req.query.code,
+  }));
+  postRequest.end();
+});
+
+app.get('/cookies', function (req, res) {
+  res.send(req.signedCookies);
+});
 
 app.post('/github', function (req, res) {
   res.send({status: 200})
