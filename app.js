@@ -30,10 +30,6 @@ app.use(bodyParser.json())
 app.use(cookieParser(cookieSecretKey));
 app.use(cookieEncrypter(cookieSecretKey));
 
-app.get('/signin', function(req, res) {
-  res.redirect('https://github.com/login/oauth/authorize?scope=repo&client_id=' + githubApplication.client_id + '&redirect_uri=' + encodeURIComponent(githubApplication.redirect_uri));
-});
-
 app.get('/githuboauthcallback', function(req, res) {
   let postRequest = https.request({
     hostname: 'github.com',
@@ -50,10 +46,11 @@ app.get('/githuboauthcallback', function(req, res) {
     response.on('end', () => {
       const json = JSON.parse(body);
       res.cookie('token', json.access_token, cookieParams);
-      res.redirect('/cookies');
+      res.redirect(req.signedCookies.redirect);
     });
   }).on('error', (e) => {
     console.log(`Got error: ${e}`);
+    res.end();
   });
 
   postRequest.write(JSON.stringify({
@@ -63,10 +60,6 @@ app.get('/githuboauthcallback', function(req, res) {
     code: req.query.code,
   }));
   postRequest.end();
-});
-
-app.get('/cookies', function (req, res) {
-  res.send(req.signedCookies);
 });
 
 app.post('/github', function (req, res) {
@@ -112,8 +105,26 @@ app.get('/:org?', (req, res) => {
   res.send("Use buildmaster.com/orgname/reponame")
 })
 
-app.use('/:orgName/:repo', express.static('dist'))
+const r1 = express.Router();
+r1.get('/:orgName/:repo', authenticate)
 
+const r2 = express.Router();
+r2.use('/:orgName/:repo', express.static('dist'))
+
+app.use(r1, r2);
+
+
+function authenticate (req, res, next) {
+  console.log('authenticate...')
+  if(req.signedCookies.token) {
+    console.log('user is authenticated')
+    next()
+  } else {
+    console.log('need to authenticate')
+    res.cookie('redirect', req.originalUrl, cookieParams)
+    res.redirect('https://github.com/login/oauth/authorize?scope=repo&client_id=' + githubApplication.client_id + '&redirect_uri=' + encodeURIComponent(githubApplication.redirect_uri));
+  }
+}
 
 function pushBuildUpdateToClient (buildData) {
   console.log(buildData)
