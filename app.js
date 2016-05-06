@@ -101,13 +101,8 @@ app.post('/github', function (req, res) {
   })
 })
 
-const r1 = express.Router();
-r1.get('/:orgName/:repo', authenticate)
-
-const r2 = express.Router();
-r2.use('/:orgName/:repo', express.static('dist'))
-
-app.use(r1, r2);
+app.get('/:orgName/:repo', authenticate)
+app.use('/:orgName/:repo', express.static('dist'))
 
 app.get('/logout', (req, res) => {
   res.clearCookie('token')
