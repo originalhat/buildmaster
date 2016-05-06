@@ -101,10 +101,6 @@ app.post('/github', function (req, res) {
   })
 })
 
-app.get('/:org?', (req, res) => {
-  res.send("Use buildmaster.com/orgname/reponame")
-})
-
 const r1 = express.Router();
 r1.get('/:orgName/:repo', authenticate)
 
@@ -112,6 +108,16 @@ const r2 = express.Router();
 r2.use('/:orgName/:repo', express.static('dist'))
 
 app.use(r1, r2);
+
+app.get('/logout', (req, res) => {
+  res.clearCookie('token')
+  res.clearCookie('redirect')
+  res.send('logged out')
+})
+
+app.get('/:org?', (req, res) => {
+  res.send("Use buildmaster.com/orgname/reponame")
+})
 
 
 function authenticate (req, res, next) {
