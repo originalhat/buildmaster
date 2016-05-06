@@ -118,8 +118,15 @@ app.get('/:org?', (req, res) => {
 })
 
 app.post('/connecttoroom', (req, res) => {
-  io.sockets.connected['/#' + req.body.socketId].join(req.body.room)
-  res.end();
+  checkAccessForRepo(req.body.room, req.signedCookies.token, (err, authorized) => {
+    if (authorized) {
+      io.sockets.connected['/#' + req.body.socketId].join(req.body.room)
+      res.end()
+    } else {
+      res.sendStatus(403);
+      console.log('use is not authorized')
+    }
+  })
 })
 
 
@@ -133,6 +140,25 @@ function authenticate (req, res, next) {
     res.cookie('redirect', req.originalUrl, cookieParams)
     res.redirect('https://github.com/login/oauth/authorize?scope=repo&client_id=' + githubApplication.client_id + '&redirect_uri=' + encodeURIComponent(githubApplication.redirect_uri));
   }
+}
+
+function checkAccessForRepo (fullName, token, cb) {
+  const options = {
+    hostname: 'api.github.com',
+    path: `/repos/${fullName}`,
+    headers: {
+      'Authorization': `token ${token}`,
+      'User-Agent': 'hookmaster'
+    }
+  }
+
+  https.get(options, (res) => {
+    if (res.statusCode === 200) {
+      cb(null, true)
+    } else {
+      cb(null, false)
+    }
+  })
 }
 
 function pushBuildUpdateToClient (buildData) {

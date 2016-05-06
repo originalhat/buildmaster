@@ -19,9 +19,8 @@ socket.on('connect', () => {
     })
     .end(function (err, res) {
       if (err) {
-        throw err
+        window.alert("oops, you're not authorized")
       }
-      // Calling the end function will send the request
     })
 })
 
