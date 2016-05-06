@@ -5,10 +5,10 @@ import R from 'ramda'
 import request from 'superagent'
 
 /* PROD */
-// let socket = io('https://buildmaster.cfapps.io')
+let socket = io('https://buildmaster.cfapps.io')
 
 /* NON-PROD */
-let socket = io('https://7454bb99.ngrok.io')
+// let socket = io('https://7454bb99.ngrok.io')
 
 socket.on('connect', () => {
   request
