@@ -15,7 +15,9 @@ const store = configureStore({ initialState, history })
 
 const routes = makeRoutes(store)
 
-store.dispatch(actions.fetchBuildsFromLocalStorage(JSON.parse(localStorage.getItem('buildmasterBuilds'))))
+const key = window.location.pathname.slice(1, -1) + ':buildmasterBuilds'
+const savedItems = JSON.parse(localStorage.getItem(key))
+store.dispatch(actions.fetchBuildsFromLocalStorage(savedItems))
 
 // Render the React application to the DOM
 ReactDOM.render(

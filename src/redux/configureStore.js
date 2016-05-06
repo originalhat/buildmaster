@@ -42,7 +42,8 @@ export default function configureStore () {
           builds: filterBuilds([action.data], state.builds)
         })
 
-        window.localStorage.setItem('buildmasterBuilds', JSON.stringify(newState.builds))
+        const key = window.location.pathname.slice(1, -1) + ':buildmasterBuilds'
+        window.localStorage.setItem(key, JSON.stringify(newState.builds))
 
         return newState
 
