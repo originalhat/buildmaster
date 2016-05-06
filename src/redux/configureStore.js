@@ -2,12 +2,28 @@ import { applyMiddleware, createStore } from 'redux'
 import createSocketIoMiddleware from 'redux-socket.io'
 import io from 'socket.io-client'
 import R from 'ramda'
+import request from 'superagent'
 
 /* PROD */
 // let socket = io('https://buildmaster.cfapps.io')
 
 /* NON-PROD */
-let socket = io('http://localhost:4000')
+let socket = io('https://7454bb99.ngrok.io')
+
+socket.on('connect', () => {
+  request
+    .post('/connecttoroom')
+    .send({
+      socketId: socket.io.engine.id,
+      room: window.location.pathname.slice(1, -1)
+    })
+    .end(function (err, res) {
+      if (err) {
+        throw err
+      }
+      // Calling the end function will send the request
+    })
+})
 
 let socketIOMiddleware = createSocketIoMiddleware(socket, 'server/')
 

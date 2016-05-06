@@ -84,10 +84,13 @@ app.post('/github', function (req, res) {
     res.on('end', () => {
       // not sure which branch to use... just pick the first
       const branch = req.body.branches.length && req.body.branches[0].name
-      const combinedStatus = JSON.parse(body).state;
       if (!branch) return
 
+      const statusData = JSON.parse(body);
+      const combinedStatus = statusData.state;
+
       pushBuildUpdateToClient({
+        fullName: statusData.repository.full_name,
         repo: repo,
         outcome: combinedStatus,
         branch: branch,
@@ -114,6 +117,11 @@ app.get('/:org?', (req, res) => {
   res.send("Use buildmaster.com/orgname/reponame")
 })
 
+app.post('/connecttoroom', (req, res) => {
+  io.sockets.connected['/#' + req.body.socketId].join(req.body.room)
+  res.end();
+})
+
 
 function authenticate (req, res, next) {
   console.log('authenticate...')
@@ -129,7 +137,7 @@ function authenticate (req, res, next) {
 
 function pushBuildUpdateToClient (buildData) {
   console.log(buildData)
-  io.sockets.emit('action', {type: 'message', data: buildData})
+  io.to(buildData.fullName).emit('action', {type: 'message', data: buildData})
 }
 
 function startServer () {
