@@ -11,7 +11,7 @@ import ProjectBuilds from 'views/ProjectBuilds/ProjectBuilds'
 import NotFoundView from 'views/NotFoundView/NotFoundView'
 
 export default (store) => (
-  <Route path='/(:repo)' component={CoreLayout}>
+  <Route path='/:org/:repo/' component={CoreLayout}>
     <IndexRoute component={ProjectBuilds} />
     <Route path='/404' component={NotFoundView} />
     <Redirect from='*' to='/404' />

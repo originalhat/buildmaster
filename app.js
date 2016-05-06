@@ -10,6 +10,7 @@ var io = require('socket.io')(server)
 var cookieParser = require('cookie-parser');
 var cookieEncrypter = require('cookie-encrypter');
 var port = process.env.PORT || 4000
+startServer()
 
 const githubApplication = {
   client_id: process.env.GITHUB_APPLICATION_CLIENT_ID,
@@ -28,9 +29,6 @@ const cookieSecretKey = process.env.COOKIE_SECRET;
 app.use(bodyParser.json())
 app.use(cookieParser(cookieSecretKey));
 app.use(cookieEncrypter(cookieSecretKey));
-app.use('/:org/:repo', express.static('dist'))
-
-startServer()
 
 app.get('/signin', function(req, res) {
   res.redirect('https://github.com/login/oauth/authorize?scope=repo&client_id=' + githubApplication.client_id + '&redirect_uri=' + encodeURIComponent(githubApplication.redirect_uri));
@@ -109,6 +107,13 @@ app.post('/github', function (req, res) {
     console.log(`Got error: ${e}`)
   })
 })
+
+app.get('/:org?', (req, res) => {
+  res.send("Use buildmaster.com/orgname/reponame")
+})
+
+app.use('/:orgName/:repo', express.static('dist'))
+
 
 function pushBuildUpdateToClient (buildData) {
   console.log(buildData)

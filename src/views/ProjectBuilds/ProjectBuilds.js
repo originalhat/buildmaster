@@ -1,4 +1,3 @@
-import R from 'ramda'
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
@@ -15,10 +14,9 @@ export class ProjectBuilds extends React.Component {
   };
 
   render () {
-    const onlySelectedRepo = (build) => this.props.params.repo ? R.propEq('repo', this.props.params.repo, build) : true
     return (
       <div className={classes['ProjectBuilds']}>
-        {this.props.builds.filter(onlySelectedRepo).map((build, index) => {
+        {this.props.builds.map((build, index) => {
           return (
             <ProjectBuild
               key={build.repo + '/' + build.branch}

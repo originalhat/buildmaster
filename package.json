@@ -19,6 +19,7 @@
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
     "deploy": "better-npm-run deploy",
+    "build:watch": "nodemon -e js --exec 'npm run deploy'",
     "flow:check": "node bin/flow-check"
   },
   "betterScripts": {
