@@ -24,6 +24,8 @@ const cookieParams = {
   maxAge: 300000,
 };
 
+const tokensPerRepo = {}
+
 const cookieSecretKey = process.env.COOKIE_SECRET;
 
 app.use(bodyParser.json())
@@ -72,7 +74,7 @@ app.post('/github', function (req, res) {
     hostname: 'api.github.com',
     path: `/repos/${org}/${repo}/commits/${req.body.sha}/status`,
     headers: {
-      'Authorization': `token ${process.env.GITHUB_OAUTH_TOKEN}`,
+      'Authorization': `token ${tokensPerRepo[req.body.name]}`,
       'User-Agent': 'hookmaster'
     }
   }
@@ -120,6 +122,7 @@ app.get('/:org?', (req, res) => {
 app.post('/connecttoroom', (req, res) => {
   checkAccessForRepo(req.body.room, req.signedCookies.token, (err, authorized) => {
     if (authorized) {
+      saveOffTokenForRepo(req.body.room, req.signedCookies.token)
       io.sockets.connected['/#' + req.body.socketId].join(req.body.room)
       res.end()
     } else {
@@ -164,6 +167,10 @@ function checkAccessForRepo (fullName, token, cb) {
 function pushBuildUpdateToClient (buildData) {
   console.log(buildData)
   io.to(buildData.fullName).emit('action', {type: 'message', data: buildData})
+}
+
+function saveOffTokenForRepo (fullName, token) {
+  tokensPerRepo[fullName] = token
 }
 
 function startServer () {
