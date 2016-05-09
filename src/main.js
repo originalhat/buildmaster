@@ -24,3 +24,5 @@ ReactDOM.render(
   <Root history={history} routes={routes} store={store} />,
   document.getElementById('root')
 )
+
+document.title = window.location.pathname.slice(1, -1).split('/')[1]
