@@ -11,19 +11,18 @@ let socket = io('https://buildmaster.cfapps.io')
 // let socket = io('https://7454bb99.ngrok.io')
 
 socket.on('connect', () => {
+  var roomName = window.location.pathname.slice(1, -1)
   request
     .post('/connecttoroom')
     .send({
       socketId: socket.io.engine.id,
-      room: window.location.pathname.slice(1, -1)
+      room: roomName
     })
     .end(function (err, res) {
-      if (res.statusCode = 200) {
-        return
-      } else if (res.statusCode === 403) {
-        window.alert("oops, you're not authorized")
-      } else {
-        window.alert("unexpected error " + res.statusCode)
+      if (err && err.status === 403) {
+        window.alert("oops, your github account is not authorized for " + roomName)
+      } else if (err) {
+        console.log("unexpected error: ")
         console.log(res)
         console.log(err)
       }
