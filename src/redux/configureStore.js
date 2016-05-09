@@ -18,8 +18,12 @@ socket.on('connect', () => {
       room: window.location.pathname.slice(1, -1)
     })
     .end(function (err, res) {
-      if (err) {
+      if (res.statusCode === 403) {
         window.alert("oops, you're not authorized")
+      } else {
+        window.alert("unexpected error " + res.statusCode)
+        console.log(res)
+        console.log(err)
       }
     })
 })

@@ -67,14 +67,15 @@ app.get('/githuboauthcallback', function(req, res) {
 app.post('/github', function (req, res) {
   res.send({status: 200})
 
-  const org = req.body.name.split('/')[0]
-  const repo = req.body.name.split('/')[1]
+  const fullName = req.body.name
+  const org = fullName.split('/')[0]
+  const repo = fullName.split('/')[1]
 
   const options = {
     hostname: 'api.github.com',
     path: `/repos/${org}/${repo}/commits/${req.body.sha}/status`,
     headers: {
-      'Authorization': `token ${tokensPerRepo[req.body.name]}`,
+      'Authorization': `token ${tokensPerRepo[fullName]}`,
       'User-Agent': 'hookmaster'
     }
   }
@@ -92,7 +93,7 @@ app.post('/github', function (req, res) {
       const combinedStatus = statusData.state;
 
       pushBuildUpdateToClient({
-        fullName: statusData.repository.full_name,
+        fullName: fullName,
         repo: repo,
         outcome: combinedStatus,
         branch: branch,
@@ -127,7 +128,7 @@ app.post('/connecttoroom', (req, res) => {
       res.end()
     } else {
       res.sendStatus(403);
-      console.log('use is not authorized')
+      console.log('user is not authorized')
     }
   })
 })
