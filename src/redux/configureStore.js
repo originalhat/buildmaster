@@ -18,7 +18,9 @@ socket.on('connect', () => {
       room: window.location.pathname.slice(1, -1)
     })
     .end(function (err, res) {
-      if (res.statusCode === 403) {
+      if (res.statusCode = 200) {
+        return
+      } else if (res.statusCode === 403) {
         window.alert("oops, you're not authorized")
       } else {
         window.alert("unexpected error " + res.statusCode)
