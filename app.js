@@ -71,9 +71,6 @@ app.post('/github', function (req, res) {
   const org = fullName.split('/')[0]
   const repo = fullName.split('/')[1]
 
-  console.log('pid', process.pid)
-  console.log('DEBUG----- token used for github status req', Object.keys(tokensPerRepo))
-
   const options = {
     hostname: 'api.github.com',
     path: `/repos/${org}/${repo}/commits/${req.body.sha}/status`,
@@ -125,19 +122,21 @@ app.get('/:org?', (req, res) => {
 
 app.post('/connecttoroom', (req, res) => {
 
-  console.log('pid', process.pid)
-  console.log('DEBUG------- on connect to room', Object.keys(req.signedCookies), req.signedCookies.token && req.signedCookies.token.length)
-
-  checkAccessForRepo(req.body.room, req.signedCookies.token, (err, authorized) => {
-    if (authorized) {
-      saveOffTokenForRepo(req.body.room, req.signedCookies.token)
-      io.sockets.connected['/#' + req.body.socketId].join(req.body.room)
-      res.end()
-    } else {
-      res.sendStatus(403);
-      console.log('user is not authorized')
-    }
-  })
+  if(!req.signedCookies.token) {
+    console.log('user didnt send token')
+    res.sendStatus(401);
+  } else {
+    checkAccessForRepo(req.body.room, req.signedCookies.token, (err, authorized) => {
+      if (authorized) {
+        saveOffTokenForRepo(req.body.room, req.signedCookies.token)
+        io.sockets.connected['/#' + req.body.socketId].join(req.body.room)
+        res.end()
+      } else {
+        res.sendStatus(403);
+        console.log('user is not authorized for ' + req.body.room)
+      }
+    })
+  }
 })
 
 

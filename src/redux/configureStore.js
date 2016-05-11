@@ -21,6 +21,8 @@ socket.on('connect', () => {
     .end(function (err, res) {
       if (err && err.status === 403) {
         window.alert("oops, your github account is not authorized for " + roomName)
+      } else if (err && err.status === 401) {
+        window.location = window.location
       } else if (err) {
         console.log("unexpected error: ")
         console.log(res)
